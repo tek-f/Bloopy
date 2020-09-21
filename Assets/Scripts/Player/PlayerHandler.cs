@@ -23,10 +23,10 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField]
     public float boostSpeed = 2.0f;
     [Header("UI/Display")]
-    float distanceTravelled;
+    public float distanceTravelled;
     public GameObject deathPanel;
-    public Text distanceDisplay;
-    public Text speedDisplay;
+    public Text distanceDisplay, speedDisplay;
+    public int coin;
     [Header("Launching")]
     public float launchSpeed;
     bool readyToLaunch;
@@ -38,7 +38,7 @@ public class PlayerHandler : MonoBehaviour
     Color red = new Color(1, 0, 0, 1);
     Color blue = new Color(0, 0, 1, 1);
     public float jumpingTimeStamp = 0;
-    public SpawnTypeManager spawnTester;
+    public SpawnObstacle spawnTester;
     [Header("Controls")]
     public Dictionary<string, KeyCode> KeyBindings = new Dictionary<string, KeyCode>();//any key input to be added for mobile support
     #endregion
@@ -52,6 +52,10 @@ public class PlayerHandler : MonoBehaviour
         if (collision.transform.tag == "Boost")
         {
             speed += boostSpeed;
+        }
+        if(collision.transform.tag == "Coin")
+        {
+            coin++;
         }
         if(collision.transform.tag == "Death")
         {
@@ -85,7 +89,8 @@ public class PlayerHandler : MonoBehaviour
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         spawner = GameObject.FindWithTag("Spawner");
         readyToLaunch = true;
-        spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnTypeManager>();
+        spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnObstacle>();
+        Time.timeScale = 1;
     }
     private void Update()
     {

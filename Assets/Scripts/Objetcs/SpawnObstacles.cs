@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnTypeManager : SpawnGeneral
+public class SpawnObstacle : SpawnGeneral
 {
     //public GameObject TestspikePrefab;
     public List<GameObject> Prefabs = new List<GameObject>();//List of prefabs of game objects of the type that the script manages (i.e. power ups, enemies/obstacles)
