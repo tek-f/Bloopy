@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-public class SpawnSpike : SpawnGeneral
+namespace Bloopy.spawn
 {
-    public GameObject spikePrefab;
-    private void FixedUpdate()
+    public class SpawnSpike : SpawnGeneral
     {
-        if (Time.time - spawnTimeStamp >= spawnDelay)
+        public GameObject spikePrefab;
+        private void FixedUpdate()
         {
-            SpawnObject(spikePrefab);
-            spawnTimeStamp = Time.time;
-            spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            if (Time.time - spawnTimeStamp >= spawnDelay)
+            {
+                SpawnObject(spikePrefab);
+                spawnTimeStamp = Time.time;
+                spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            }
         }
     }
 }

@@ -1633,11 +1633,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1593174291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e0a63ded44764458fa6eb7f713943f, type: 3}
+  m_Script: {fileID: 11500000, guid: f208dd5013de3c84eb7b0abfef76e870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpawnDelay: 10
-  minSpawnDelay: 5
+  maxSpawnDelay: 0
+  minSpawnDelay: 0
   spawning: 0
   Prefabs:
   - {fileID: 7622040645193056907, guid: 334815dd298a4084ab64142444e16887, type: 3}

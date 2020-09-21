@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using Bloopy.spawn;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class PlayerHandler : MonoBehaviour
     Color red = new Color(1, 0, 0, 1);
     Color blue = new Color(0, 0, 1, 1);
     public float jumpingTimeStamp = 0;
-    public SpawnObstacle spawnTester;
+    public SpawnHazards spawnTester;
     [Header("Controls")]
     public Dictionary<string, KeyCode> KeyBindings = new Dictionary<string, KeyCode>();//any key input to be added for mobile support
     #endregion
@@ -89,7 +90,7 @@ public class PlayerHandler : MonoBehaviour
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         spawner = GameObject.FindWithTag("Spawner");
         readyToLaunch = true;
-        spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnObstacle>();
+        spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnHazards>();
         Time.timeScale = 1;
     }
     private void Update()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Bloopy.spawn;
 [RequireComponent(typeof(BoxCollider2D))]
 public class ObjectGeneral : MonoBehaviour
 {

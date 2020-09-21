@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnTest : SpawnGeneral
+namespace Bloopy.spawn
 {
-    public GameObject boostTestPrefab;
-    private void FixedUpdate()
+    public class SpawnTest : SpawnGeneral
     {
-        //78 seconds
-        if(Time.time - spawnTimeStamp >= spawnDelay)
+        public GameObject boostTestPrefab;
+        private void FixedUpdate()
         {
-            SpawnObject(boostTestPrefab);
-            spawnTimeStamp = Time.time;
-            spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            //78 seconds
+            if (Time.time - spawnTimeStamp >= spawnDelay)
+            {
+                SpawnObject(boostTestPrefab);
+                spawnTimeStamp = Time.time;
+                spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            }
         }
-    }
-    private void Start()
-    {
-        maxSpawnDelay = 50.0f;
-        minSpawnDelay = 5.0f;
+        private void Start()
+        {
+            maxSpawnDelay = 50.0f;
+            minSpawnDelay = 5.0f;
+        }
     }
 }
