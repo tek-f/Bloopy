@@ -11,7 +11,7 @@ namespace Bloopy.Objects
         float speed;
         PlayerHandler player;
         public SpawnTest spawner;
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.transform.tag == "Object Catcher")
             {

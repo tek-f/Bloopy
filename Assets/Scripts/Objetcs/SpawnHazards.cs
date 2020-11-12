@@ -18,12 +18,7 @@ namespace Bloopy.Spawn
         /// The time until the spawn rate is increased
         /// </summary>
         [SerializeField] float timeToSpawnIncrease = 0.9f;
-        private void Start()
-        {
-            maxSpawnDelay = 10.0f;
-            minSpawnDelay = 5.0f;
-        }
-        private void FixedUpdate()
+        private void Update()
         {
             if (Time.time - spawnTimeStamp > spawnDelay)
             {

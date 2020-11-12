@@ -6,15 +6,12 @@ namespace Bloopy.Spawn
 {
     public class Boost : SpawnGeneral
     {
-        public GameObject boostTestPrefab;
-        private void Start()
+        /// <summary>
+        /// Prefab of the boost object to be spawned in SpawnObject().
+        /// </summary>
+        [SerializeField] GameObject boostTestPrefab;
+        private void Update()
         {
-            maxSpawnDelay = 10.0f;
-            minSpawnDelay = 5.0f;
-        }
-        private void FixedUpdate()
-        {
-            //78 seconds, the time for a boost sprite to move accross the ground sprite at a speed of 1
             if (Time.time - spawnTimeStamp >= spawnDelay)
             {
                 SpawnObject(boostTestPrefab);

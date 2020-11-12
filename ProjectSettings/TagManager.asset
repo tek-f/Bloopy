@@ -12,6 +12,7 @@ TagManager:
   - Boost Trigger
   - Spawner
   - Death
+  - Coin
   layers:
   - Default
   - TransparentFX

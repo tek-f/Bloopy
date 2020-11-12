@@ -28,7 +28,7 @@ namespace Bloopy.Player
         public float boostSpeed = 2.0f;
         [Header("UI/Display")]
         public GameObject deathPanel;
-        public Text distanceDisplay, speedDisplay;
+        public Text distanceDisplay, speedDisplay, coinDisplay;
         public int coin;
         [Header("Launching")]
         public float launchSpeed;
@@ -46,24 +46,33 @@ namespace Bloopy.Player
         public Dictionary<string, KeyCode> KeyBindings = new Dictionary<string, KeyCode>();//any key input to be added for mobile support
         #endregion
         #region Functions
+        /// <summary>
+        /// Handles player behvaiour on collision with objects depending on the objects tag.
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.transform.tag == "Ground")
+            switch (collision.transform.tag)
             {
-                speed -= speed * rateOfDecceleration;
+                case "Ground":
+                    speed -= speed * rateOfDecceleration;//decrease player speed by rate of decceleration
+                    break;
+                case "Boost":
+                    speed += boostSpeed;//increase the players speed by boost speed
+                    break;
+                case "Death":
+                    Death();//player dies
+                    break;
             }
-            if (collision.transform.tag == "Boost")
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.transform.tag == "Coin")
             {
-                speed += boostSpeed;
-            }
-            if (collision.transform.tag == "Coin")
-            {
-                coin++;
-            }
-            if (collision.transform.tag == "Death")
-            {
-                Debug.Log("You are dead");
-                Death();
+                coin++;//increase players coin count by 1
+                coinDisplay.text = "Coins:" + coin.ToString();
+                Destroy(collision.gameObject);//destroy the coin
+                print(coin);
             }
         }
         public void Launch()
@@ -73,13 +82,6 @@ namespace Bloopy.Player
             playerRigidBody.AddForce(new Vector2(0, launchSpeed), ForceMode2D.Impulse);
             spawner.SetActive(true);
             readyToLaunch = false;
-        }
-        void SpawnChecker()
-        {
-            if (distanceTravelled > 100)
-            {
-                spawnTester.spawning = true;
-            }
         }
         void Death()
         {
@@ -115,7 +117,6 @@ namespace Bloopy.Player
             distanceDisplay.text = "Distance: " + distanceTravelled.ToString();
             speedDisplay.text = "Speed: " + speed.ToString();
             #endregion
-            SpawnChecker();
         }
         #endregion
     }
