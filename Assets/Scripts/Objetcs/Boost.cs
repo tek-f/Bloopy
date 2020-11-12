@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Bloopy.spawn
+
+namespace Bloopy.Spawn
 {
     public class Boost : SpawnGeneral
     {
@@ -10,7 +11,6 @@ namespace Bloopy.spawn
         {
             maxSpawnDelay = 10.0f;
             minSpawnDelay = 5.0f;
-            spawning = true;
         }
         private void FixedUpdate()
         {
@@ -18,8 +18,6 @@ namespace Bloopy.spawn
             if (Time.time - spawnTimeStamp >= spawnDelay)
             {
                 SpawnObject(boostTestPrefab);
-                spawnTimeStamp = Time.time;
-                spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
             }
         }
     }

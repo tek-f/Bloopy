@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Bloopy.spawn
+namespace Bloopy.Spawn
 {
     public class SpawnHazards : SpawnGeneral
     {
-        //public GameObject TestspikePrefab;
-        public List<GameObject> Prefabs = new List<GameObject>();//List of prefabs of game objects of the type that the script manages (i.e. power ups, enemies/obstacles)
+        /// <summary>
+        /// List of prefabs of hazzards
+        /// </summary>
+        public List<GameObject> Prefabs = new List<GameObject>();
+        /// <summary>
+        /// Modifier for minSpawnDelay and maxSpawnDelay. Spawn delay is multiplied by modifier to reduce the time between spawns
+        /// </summary>
+        [SerializeField] float spawnDelayModifier = 0.9f;
+        /// <summary>
+        /// The time until the spawn rate is increased
+        /// </summary>
+        [SerializeField] float timeToSpawnIncrease = 0.9f;
         private void Start()
         {
             maxSpawnDelay = 10.0f;
@@ -15,16 +25,9 @@ namespace Bloopy.spawn
         }
         private void FixedUpdate()
         {
-            if (spawning)
+            if (Time.time - spawnTimeStamp > spawnDelay)
             {
-                if (Time.time - spawnTimeStamp > spawnDelay)
-                {
-                    //SpawnObject(TestspikePrefab);
-                    Debug.Log("Spike spawned");
-                    SpawnObject(Prefabs[Random.Range(0, Prefabs.Count)]);
-                    spawnTimeStamp = Time.time;
-                    spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
-                }
+                SpawnObject(Prefabs[Random.Range(0, Prefabs.Count)]);
             }
         }
     }

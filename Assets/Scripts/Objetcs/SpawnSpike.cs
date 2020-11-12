@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bloopy.spawn
+namespace Bloopy.Spawn
 {
     public class SpawnSpike : SpawnGeneral
     {

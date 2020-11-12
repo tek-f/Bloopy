@@ -1,28 +1,33 @@
 ﻿using UnityEngine;
-using Bloopy.spawn;
-[RequireComponent(typeof(BoxCollider2D))]
-public class ObjectGeneral : MonoBehaviour
+using Bloopy.Spawn;
+using Bloopy.Player;
+
+namespace Bloopy.Objects
 {
-    Vector2 position;
-    float speed;
-    PlayerHandler player;
-    public SpawnTest spawner;
-    private void OnCollisionEnter2D(Collision2D collision)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class ObjectGeneral : MonoBehaviour
     {
-        if(collision.transform.tag == "Object Catcher")
+        Vector2 position;
+        float speed;
+        PlayerHandler player;
+        public SpawnTest spawner;
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            Destroy(gameObject);
+            if (collision.transform.tag == "Object Catcher")
+            {
+                Destroy(gameObject);
+            }
         }
-    }
-    private void Start()
-    {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
-        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnTest>();
-    }
-    private void Update()
-    {
-        position = transform.position;
-        position.x -= player.speed * Time.deltaTime;
-        transform.position = position;
+        private void Start()
+        {
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
+            spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnTest>();
+        }
+        private void Update()
+        {
+            position = transform.position;
+            position.x -= player.speed * Time.deltaTime;
+            transform.position = position;
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Bloopy.Player;
 
 //The general spawn script that all spawn scripts will inherit from
-namespace Bloopy.spawn
+namespace Bloopy.Spawn
 {
     public class SpawnGeneral : MonoBehaviour
     {
@@ -10,15 +11,12 @@ namespace Bloopy.spawn
         public float maxSpawnDelay;
         public float minSpawnDelay;
         protected float spawnTimeStamp;
-        protected PlayerHandler player;
         public bool spawning;
         public void SpawnObject(GameObject prefab)
         {
             Instantiate(prefab);
-        }
-        private void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHandler>();
+            spawnTimeStamp = Time.time;
+            spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
         }
     }
 }
