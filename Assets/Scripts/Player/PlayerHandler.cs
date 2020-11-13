@@ -67,12 +67,17 @@ namespace Bloopy.Player
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.transform.tag == "Coin")
+            switch (collision.transform.tag)
             {
-                coin++;//increase players coin count by 1
-                coinDisplay.text = "Coins:" + coin.ToString();
-                Destroy(collision.gameObject);//destroy the coin
-                print(coin);
+                case "Coin":
+                    coin++;//increase players coin count by 1
+                    coinDisplay.text = "Coins:" + coin.ToString();
+                    Destroy(collision.gameObject);//destroy the coin
+                    print(coin);
+                    break;
+                case "Boost":
+                    speed += boostSpeed;//increase the players speed by boost speed
+                    break;
             }
         }
         public void Launch()

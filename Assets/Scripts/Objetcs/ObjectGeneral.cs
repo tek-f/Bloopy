@@ -11,14 +11,14 @@ namespace Bloopy.Objects
         float speed;
         PlayerHandler player;
         public SpawnTest spawner;
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.transform.tag == "Object Catcher")
             {
                 Destroy(gameObject);
             }
         }
-        private void Start()
+        protected virtual void Start()
         {
             player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
             spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnTest>();

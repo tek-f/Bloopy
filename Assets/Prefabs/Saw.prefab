@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3725471954029228054}
   - component: {fileID: 5357479866403943801}
   - component: {fileID: 505549924236395788}
-  - component: {fileID: 4950888879338379622}
   - component: {fileID: 4349893932252642013}
+  - component: {fileID: -6255985048106058944}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Death
@@ -152,19 +152,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.56, y: 2.56}
   m_EdgeRadius: 0
---- !u!114 &4950888879338379622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7622040645193056907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 630c3a31b3eac1a4db29f177bd86b25e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
 --- !u!58 &4349893932252642013
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -181,3 +168,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &-6255985048106058944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7622040645193056907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bb8477eda5b5e41b16e09ff950cc55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 0}

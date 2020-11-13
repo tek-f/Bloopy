@@ -9,7 +9,7 @@ namespace Bloopy.Spawn
         /// <summary>
         /// List of prefabs of hazzards
         /// </summary>
-        public List<GameObject> Prefabs = new List<GameObject>();
+        [SerializeField] List<GameObject> Prefabs = new List<GameObject>();
         /// <summary>
         /// Modifier for minSpawnDelay and maxSpawnDelay. Spawn delay is multiplied by modifier to reduce the time between spawns
         /// </summary>
