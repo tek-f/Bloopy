@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5911703924803641247}
   - component: {fileID: 8377960697246305829}
   - component: {fileID: 586338865197152944}
-  - component: {fileID: 1561600940634447321}
   m_Layer: 8
   m_Name: boost sprite
   m_TagString: Boost
@@ -48,6 +47,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630c3a31b3eac1a4db29f177bd86b25e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostPrefab: {fileID: 6472091102278224162}
   spawner: {fileID: 0}
 --- !u!61 &586338865197152944
 BoxCollider2D:
@@ -123,24 +122,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.189, y: 0.1417}
   m_EdgeRadius: 0
---- !u!50 &1561600940634447321
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6472091102278224162}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 6

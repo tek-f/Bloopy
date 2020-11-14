@@ -10,19 +10,31 @@ namespace Bloopy.Spawn
         /// <summary>
         /// The time between spawns. Used in Update to check if SpawnObject() should run. Is set in SpawnObject to a random number between minSpawnDelay and maxSpawnDelay
         /// </summary>
-        protected float spawnDelay;
+        [SerializeField] protected float spawnDelay;
         /// <summary>
         /// Used to set spawnDelay. The maximum value spawnDelay can be set to.
         /// </summary>
-        public float maxSpawnDelay;
+        [SerializeField] protected float maxSpawnDelay;
         /// <summary>
         /// Used to set spawnDelay. The minimum value spawnDelay can be set to.
         /// </summary>
-        public float minSpawnDelay;
+        [SerializeField] protected float minSpawnDelay;
+        /// <summary>
+        /// The time until the spawn rate is altered.
+        /// </summary>
+        [SerializeField] float spawnDelayModifier = 0.9f;
+        /// <summary>
+        /// The time until AlterSpawnDelay() is called, which alters the time until the next spawn.
+        /// </summary>
+        [SerializeField] float timeToSpawnDelayAlter;
         /// <summary>
         /// Time stamp of the previous spawn. Used in Update to check if SpawnObject() should run.
         /// </summary>
         protected float spawnTimeStamp;
+        /// <summary>
+        /// Time stamp of the previous alter of the spawn spawn delay. Used in Update to check if AlterSpawnDelay() should run.
+        /// </summary>
+        protected float spawnDelayAlterationTimeStamp;
         /// <summary>
         /// Base spawnning function to be used by Spawner scripts to spawn in objects.
         /// </summary>
@@ -32,10 +44,19 @@ namespace Bloopy.Spawn
             Instantiate(prefab);
             spawnTimeStamp = Time.time;
             spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            if(Time.time - spawnDelayAlterationTimeStamp > timeToSpawnDelayAlter)
+            {
+                AlterSpawnDelay();
+            }
         }
-        private void Start()
+        /// <summary>
+        /// Multiplies maxSpawnDelay and minSpawnDelay by spawnDelayModifier to alter the time between spawns. Sets spawnDelayAlterationTimeStamp to Time.time.
+        /// </summary>
+        protected void AlterSpawnDelay()
         {
-            spawnTimeStamp = Time.time;
+            maxSpawnDelay *= spawnDelayModifier;
+            minSpawnDelay *= spawnDelayModifier;
+            spawnDelayAlterationTimeStamp = Time.time;
         }
     }
 }

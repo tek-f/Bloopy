@@ -4,7 +4,7 @@ using Bloopy.Player;
 
 namespace Bloopy.Objects
 {
-    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Collider))]
     public class ObjectGeneral : MonoBehaviour
     {
         Vector2 position;
