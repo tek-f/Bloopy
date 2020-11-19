@@ -116,11 +116,15 @@ namespace Bloopy.Player
                     playerRigidBody.velocity = new Vector2(0, slamSpeed);
                 }
             }
+            if(speed <= 0.8)
+            {
+                Death();
+            }
             #endregion
             #region Update UI
             distanceTravelled += speed * Time.deltaTime;
-            distanceDisplay.text = "Distance: " + distanceTravelled.ToString();
-            speedDisplay.text = "Speed: " + speed.ToString();
+            distanceDisplay.text = "Distance: " + (int)distanceTravelled;
+            speedDisplay.text = "Speed: " + (int)speed;
             #endregion
         }
         #endregion
