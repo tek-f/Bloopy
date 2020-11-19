@@ -20,8 +20,8 @@ namespace Bloopy.UI
         }
         private void Update()
         {
-            coin.text = coinDisplay.ToString();
-            distance.text = distanceDisplay.ToString();
+            coin.text = "Coins: " + coinDisplay.ToString();
+            distance.text = "Distance: " + distanceDisplay.ToString();
             if (distanceDisplay < player.distanceTravelled)
             {
                 distanceDisplay++;

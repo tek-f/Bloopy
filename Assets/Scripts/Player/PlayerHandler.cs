@@ -116,7 +116,7 @@ namespace Bloopy.Player
                     playerRigidBody.velocity = new Vector2(0, slamSpeed);
                 }
             }
-            if(speed <= 0.8)
+            if (speed <= 0.8 && readyToLaunch == false)
             {
                 Death();
             }
