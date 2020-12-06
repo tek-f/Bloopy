@@ -85,7 +85,7 @@ namespace Bloopy.Player
             Debug.Log("Launched");
             speed = launchSpeed;
             playerRigidBody.AddForce(new Vector2(0, launchSpeed), ForceMode2D.Impulse);
-            spawner.SetActive(true);
+            //spawner.SetActive(true);
             readyToLaunch = false;
         }
         void Death()
@@ -99,7 +99,7 @@ namespace Bloopy.Player
             playerSpriteRenderer = GetComponent<SpriteRenderer>();
             spawner = GameObject.FindWithTag("Spawner");
             readyToLaunch = true;
-            spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnHazards>();
+            //spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnHazards>();
             Time.timeScale = 1;
         }
         private void Update()
