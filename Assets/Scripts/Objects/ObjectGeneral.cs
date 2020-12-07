@@ -9,8 +9,7 @@ namespace Bloopy.Objects
     {
         Vector2 position;
         float speed;
-        PlayerHandler player;
-        public SpawnTest spawner;
+        public PlayerHandler player;
         protected void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.transform.tag == "Object Catcher")
@@ -18,10 +17,9 @@ namespace Bloopy.Objects
                 Destroy(gameObject);
             }
         }
-        protected virtual void Start()
+        protected virtual void Awake()
         {
-            player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
-            spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnTest>();
+            //player = GameObject.FindWithTag("Player").GetComponent<PlayerHandler>();
         }
         private void Update()
         {

@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace Bloopy.Objects
 {
-    public class CoinBehaviour : ObjectGeneral
+    public class SawBehaviour : ObjectGeneral
     {
-        protected override void Start()
+        // Start is called before the first frame update
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             Vector3 newPos = transform.position;
-            newPos.y = Random.Range(7, 25);
+            newPos.y = Random.Range(8, 24);
             transform.position = newPos;
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bloopy.Spawn;
+using Bloopy.GameManagement;
 
 namespace Bloopy.Player
 {
@@ -23,29 +24,47 @@ namespace Bloopy.Player
         [SerializeField]
         float acceleration = 2.0f;
         [SerializeField]
-        float rateOfDecceleration = 0.1f;
+        float groundRateOfDecceleration = 0.9f;
         [SerializeField]
         public float boostSpeed = 2.0f;
         [Header("UI/Display")]
-        public GameObject deathPanel;
+        public GameObject deathPanel, hudPanel;
         public Text distanceDisplay, speedDisplay, coinDisplay;
         public int coin;
         [Header("Launching")]
         public float launchSpeed;
-        bool readyToLaunch;
+        bool readyToLaunch, launched;
         [Header("Spawning")]
-        public GameObject spawner;
         public List<float> SpawnThresholds = new List<float>();
         [Header("Test Only")]
-        SpriteRenderer playerSpriteRenderer;
-        Color red = new Color(1, 0, 0, 1);
-        Color blue = new Color(0, 0, 1, 1);
         public float jumpingTimeStamp = 0;
         public SpawnHazards spawnTester;
-        [Header("Controls")]
-        public Dictionary<string, KeyCode> KeyBindings = new Dictionary<string, KeyCode>();//any key input to be added for mobile support
         #endregion
         #region Functions
+        public void PrepareToLaunch()
+        {
+            readyToLaunch = true;
+        }
+        public void Launch()
+        {
+            GameManager.singleton.Launch();
+            Debug.Log("Launched");
+            speed = launchSpeed;
+            playerRigidBody.AddForce(new Vector2(0, launchSpeed), ForceMode2D.Impulse);
+            hudPanel.SetActive(true);
+            //spawner.SetActive(true);
+            readyToLaunch = false;
+            launched = true;
+        }
+        void Death()
+        {
+            Time.timeScale = 0;
+            deathPanel.SetActive(true);
+        }
+        public void ReduceSpeed(float _rateOfDeceleration)
+        {
+            speed = speed * _rateOfDeceleration;
+        }
         /// <summary>
         /// Handles player behvaiour on collision with objects depending on the objects tag.
         /// </summary>
@@ -55,11 +74,18 @@ namespace Bloopy.Player
             switch (collision.transform.tag)
             {
                 case "Ground":
-                    speed -= speed * rateOfDecceleration;//decrease player speed by rate of decceleration
+                    if(speed > 10)
+                    {
+                        speed = 0.8f * speed;
+                    }
+                    else
+                    {
+                        speed -= 2;
+                    }
                     break;
-                case "Boost":
-                    speed += boostSpeed;//increase the players speed by boost speed
-                    break;
+                //case "Boost":
+                //    speed += boostSpeed;//increase the players speed by boost speed
+                //    break;
                 case "Death":
                     Death();//player dies
                     break;
@@ -75,36 +101,21 @@ namespace Bloopy.Player
                     Destroy(collision.gameObject);//destroy the coin
                     print(coin);
                     break;
-                case "Boost":
-                    speed += boostSpeed;//increase the players speed by boost speed
-                    break;
+                //case "Boost":
+                //    speed += boostSpeed;//increase the players speed by boost speed
+                //    break;
             }
         }
-        public void Launch()
-        {
-            Debug.Log("Launched");
-            speed = launchSpeed;
-            playerRigidBody.AddForce(new Vector2(0, launchSpeed), ForceMode2D.Impulse);
-            //spawner.SetActive(true);
-            readyToLaunch = false;
-        }
-        void Death()
-        {
-            Time.timeScale = 0;
-            deathPanel.SetActive(true);
-        }
-        private void Start()
+        private void Awake()
         {
             playerRigidBody = GetComponent<Rigidbody2D>();
-            playerSpriteRenderer = GetComponent<SpriteRenderer>();
-            spawner = GameObject.FindWithTag("Spawner");
-            readyToLaunch = true;
+            readyToLaunch = false;
+            launched = false;
             //spawnTester = GameObject.FindWithTag("Spawner").GetComponent<SpawnHazards>();
-            Time.timeScale = 1;
         }
         private void Update()
         {
-            #region Movement
+            #region Slam
             if (Input.GetMouseButtonDown(0))
             {
                 if (readyToLaunch)
@@ -116,17 +127,20 @@ namespace Bloopy.Player
                     playerRigidBody.velocity = new Vector2(0, slamSpeed);
                 }
             }
-            if (speed <= 0.8 && readyToLaunch == false)
+            #endregion
+            if (launched)
             {
-                Death();
+                if (speed <= 0.9f)
+                {
+                    Death();
+                }
+                #endregion
+                #region Update UI
+                distanceTravelled += speed * Time.deltaTime;
+                distanceDisplay.text = "Distance: " + (int)distanceTravelled;
+                speedDisplay.text = "Speed: " + (int)speed;
+                #endregion
             }
-            #endregion
-            #region Update UI
-            distanceTravelled += speed * Time.deltaTime;
-            distanceDisplay.text = "Distance: " + (int)distanceTravelled;
-            speedDisplay.text = "Speed: " + (int)speed;
-            #endregion
         }
-        #endregion
     }
 }

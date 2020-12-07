@@ -12,7 +12,7 @@ namespace Bloopy.GameManagement
         private void Start()
         {
             minYPos = transform.position.y;
-            maxYPos = 50;
+            maxYPos = 25;
         }
         void Update()
         {

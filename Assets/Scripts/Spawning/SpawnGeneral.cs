@@ -7,6 +7,9 @@ namespace Bloopy.Spawn
 {
     public class SpawnGeneral : MonoBehaviour
     {
+        public PlayerHandler player;
+
+        public int gameLayer;
         /// <summary>
         /// The time between spawns. Used in Update to check if SpawnObject() should run. Is set in SpawnObject to a random number between minSpawnDelay and maxSpawnDelay
         /// </summary>
@@ -44,10 +47,10 @@ namespace Bloopy.Spawn
             Instantiate(prefab);
             spawnTimeStamp = Time.time;
             spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
-            if(Time.time - spawnDelayAlterationTimeStamp > timeToSpawnDelayAlter)
-            {
-                AlterSpawnDelay();
-            }
+            //if(Time.time - spawnDelayAlterationTimeStamp > timeToSpawnDelayAlter)
+            //{
+            //    AlterSpawnDelay();
+            //}
         }
         /// <summary>
         /// Multiplies maxSpawnDelay and minSpawnDelay by spawnDelayModifier to alter the time between spawns. Sets spawnDelayAlterationTimeStamp to Time.time.
