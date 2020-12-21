@@ -13,6 +13,8 @@ TagManager:
   - Spawner
   - Death
   - Coin
+  - Game Area Trigger
+  - Platform
   layers:
   - Default
   - TransparentFX

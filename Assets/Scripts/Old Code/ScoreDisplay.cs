@@ -26,7 +26,7 @@ namespace Bloopy.UI
             {
                 distanceDisplay++;
             }
-            if (coinDisplay < player.coin)
+            if (coinDisplay < player.bloopCollected)
             {
                 coinDisplay++;
             }

@@ -11,7 +11,7 @@ namespace Bloopy.Objects
         {
             if(collision.transform.CompareTag("Player"))
             {
-                //player.ReduceSpeed()
+
             }
         }
     }

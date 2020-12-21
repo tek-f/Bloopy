@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Bloopy.Player;
+using Bloopy.Objects;
 
 //The general spawn script that all spawn scripts will inherit from
 namespace Bloopy.Spawn
@@ -44,13 +45,9 @@ namespace Bloopy.Spawn
         /// <param name="prefab">Prefab to be instanciated/spawned</param>
         public virtual void SpawnObject(GameObject prefab)
         {
-            Instantiate(prefab);
+            GameObject newObject = Instantiate(prefab);
             spawnTimeStamp = Time.time;
             spawnDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
-            //if(Time.time - spawnDelayAlterationTimeStamp > timeToSpawnDelayAlter)
-            //{
-            //    AlterSpawnDelay();
-            //}
         }
         /// <summary>
         /// Multiplies maxSpawnDelay and minSpawnDelay by spawnDelayModifier to alter the time between spawns. Sets spawnDelayAlterationTimeStamp to Time.time.

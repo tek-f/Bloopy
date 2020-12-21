@@ -7,11 +7,10 @@ namespace Bloopy.Objects
     public class SawBehaviour : ObjectGeneral
     {
         // Start is called before the first frame update
-        protected override void Awake()
+        protected void Start()
         {
-            base.Awake();
             Vector3 newPos = transform.position;
-            newPos.y = Random.Range(8, 24);
+            newPos.y = Random.Range(Mathf.Clamp(player.transform.position.y - 8, 1, player.transform.position.y), Mathf.Clamp(player.transform.position.y + 8, player.transform.position.y, 50));
             transform.position = newPos;
         }
     }

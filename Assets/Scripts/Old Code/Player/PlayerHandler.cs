@@ -14,23 +14,23 @@ namespace Bloopy.Player
         [SerializeField]
         Rigidbody2D playerRigidBody;
         [SerializeField]
-        float slamSpeed = -10.0f;
+        float slamForce;
         [SerializeField]
-        float maxVerticalSpeed = -10.0f;
+        float maxSlamSpeed;
         [SerializeField]
         float verticalSpeed;
         [SerializeField]
         public float speed;
         [SerializeField]
-        float acceleration = 2.0f;
+        float acceleration;
         [SerializeField]
-        float groundRateOfDecceleration = 0.9f;
+        float groundRateOfDecceleration;
         [SerializeField]
-        public float boostSpeed = 2.0f;
+        public float bloopVerticalBoost;
         [Header("UI/Display")]
         public GameObject deathPanel, hudPanel;
         public Text distanceDisplay, speedDisplay, coinDisplay;
-        public int coin;
+        public int bloopCollected;
         [Header("Launching")]
         public float launchSpeed;
         bool readyToLaunch, launched;
@@ -61,9 +61,23 @@ namespace Bloopy.Player
             Time.timeScale = 0;
             deathPanel.SetActive(true);
         }
+        public void SetVerticalVelocity(float _newVerticalVelocity)
+        {
+            playerRigidBody.velocity = new Vector2(0, _newVerticalVelocity);
+        }
+        public void AlterVerticalVelocity(float _alteration)
+        {
+            playerRigidBody.AddForce(new Vector2(0, _alteration), ForceMode2D.Impulse);
+        }
         public void ReduceSpeed(float _rateOfDeceleration)
         {
             speed = speed * _rateOfDeceleration;
+        }
+        public void CollectCoin()
+        {
+            bloopCollected++;
+            coinDisplay.text = "Coins:" + bloopCollected.ToString();
+            print(bloopCollected);
         }
         /// <summary>
         /// Handles player behvaiour on collision with objects depending on the objects tag.
@@ -74,18 +88,8 @@ namespace Bloopy.Player
             switch (collision.transform.tag)
             {
                 case "Ground":
-                    if(speed > 10)
-                    {
-                        speed = 0.8f * speed;
-                    }
-                    else
-                    {
-                        speed -= 2;
-                    }
+                    speed = 0.8f * speed;
                     break;
-                //case "Boost":
-                //    speed += boostSpeed;//increase the players speed by boost speed
-                //    break;
                 case "Death":
                     Death();//player dies
                     break;
@@ -95,15 +99,19 @@ namespace Bloopy.Player
         {
             switch (collision.transform.tag)
             {
-                case "Coin":
-                    coin++;//increase players coin count by 1
-                    coinDisplay.text = "Coins:" + coin.ToString();
-                    Destroy(collision.gameObject);//destroy the coin
-                    print(coin);
-                    break;
-                //case "Boost":
-                //    speed += boostSpeed;//increase the players speed by boost speed
+                //case "Coin":
+                //    bloopCollected++;//increase players coin count by 1
+                //    coinDisplay.text = "Coins:" + bloopCollected.ToString();
+                //    Destroy(collision.gameObject);//destroy the coin
+                //    print(bloopCollected);
                 //    break;
+                case "Bloop":
+                    AlterVerticalVelocity(bloopVerticalBoost);//increase the players vertical speed by bloopVerticalBoost
+                    Destroy(collision.gameObject);
+                    break;
+                    //case "Boost":
+                    //    speed += boostSpeed;//increase the players speed by boost speed
+                    //    break;
             }
         }
         private void Awake()
@@ -122,9 +130,13 @@ namespace Bloopy.Player
                 {
                     Launch();
                 }
+                else if(playerRigidBody.velocity.y > maxSlamSpeed)
+                {
+                    AlterVerticalVelocity(slamForce);
+                }
                 else
                 {
-                    playerRigidBody.velocity = new Vector2(0, slamSpeed);
+                    Debug.Log("ur going too damn fast son!");
                 }
             }
             #endregion

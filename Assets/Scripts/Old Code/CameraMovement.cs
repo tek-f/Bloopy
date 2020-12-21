@@ -12,7 +12,7 @@ namespace Bloopy.GameManagement
         private void Start()
         {
             minYPos = transform.position.y;
-            maxYPos = 25;
+            maxYPos = GameManager.singleton.gameCeilingHeight;
         }
         void Update()
         {
