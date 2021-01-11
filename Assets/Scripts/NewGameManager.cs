@@ -58,7 +58,7 @@ namespace Bloopy.GameManagement
             {
                 StartGame();
             }
-            if(gamePlaying)
+            else if(gamePlaying)
             {
                 if(player.transform.position.y > height)
                 {
