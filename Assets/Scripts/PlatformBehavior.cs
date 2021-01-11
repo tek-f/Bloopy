@@ -9,7 +9,7 @@ namespace Bloopy.Platform
     public class PlatformBehavior : MonoBehaviour
     {
         int platformPower = 0;
-        public int platformsIndex;
+        //public int platformsIndex;
         public float spawnTimestamp { get; private set; }
         public void IncreasePlatformPower()
         {
@@ -26,13 +26,13 @@ namespace Bloopy.Platform
         {
             if (NewGameManager.singleton.player.transform.position.y > transform.position.y + 7)
             {
-                PlatformSpawner.singleton.platforms[platformsIndex] = null;
+                PlatformSpawner.singleton.platformInstance = null;
                 Destroy(gameObject);
             }
         }
         private void OnDestroy()
         {
-            PlatformSpawner.singleton.platforms[platformsIndex] = null;
+            PlatformSpawner.singleton.platformInstance = null;
         }
     }
 }
