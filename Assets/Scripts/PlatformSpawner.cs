@@ -15,9 +15,10 @@ namespace Bloopy.GameManagement
         public PlatformBehavior[] platforms;
         public void SpawnPlatform(Vector3 _clickPos)
         {
-            //Calculate platforms rotation
+            //Determine platforms rotation
             float platformRotation = (_clickPos.x / 3) * 45;
-            //Calculate platforms position
+
+            //Determine platform position
             Vector3 _platformPosition = _clickPos;
             _platformPosition.z = 0;
 
@@ -35,7 +36,7 @@ namespace Bloopy.GameManagement
                 Destroy(platformInstance.gameObject);
             }
 
-            //Replace platforms[0] with newPlatform
+            //Replace old platform with newPlatform
             platformInstance = newPlatform.GetComponent<PlatformBehavior>();
 
             #region Old Code
@@ -67,7 +68,6 @@ namespace Bloopy.GameManagement
             //newPlatform.GetComponent<PlatformBehavior>().platformsIndex = tempPlatformTracker;
             #endregion
 
-
         }
         private void Awake()
         {
@@ -80,7 +80,7 @@ namespace Bloopy.GameManagement
                 Destroy(gameObject);
             }
 
-            platforms = new PlatformBehavior[3];
+            //platforms = new PlatformBehavior[3];
         }
         //private void Update()
         //{

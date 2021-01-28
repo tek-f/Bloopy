@@ -30,9 +30,5 @@ namespace Bloopy.Platform
                 Destroy(gameObject);
             }
         }
-        private void OnDestroy()
-        {
-            PlatformSpawner.singleton.platformInstance = null;
-        }
     }
 }

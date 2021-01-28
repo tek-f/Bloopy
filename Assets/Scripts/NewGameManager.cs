@@ -89,3 +89,4 @@ namespace Bloopy.GameManagement
         }
     }
 }
+//TODO: Change from moving Bloopy verticaly to having objects move past Bloopy. Will require the score tracking to be changed to being inscreased based on the vertical velocity of Bloopy, while keeping Bloopy within range of the camera.
