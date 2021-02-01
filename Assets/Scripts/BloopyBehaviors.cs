@@ -16,6 +16,10 @@ namespace Bloopy.Player
         /// </summary>
         float launchForce = 25.0f;
         /// <summary>
+        /// Reference to the camera used by the player.
+        /// </summary>
+        Camera playerCamera;
+        /// <summary>
         /// Horizontal screen range, used for side looping.
         /// </summary>
         public float hScreenRange;
@@ -23,10 +27,12 @@ namespace Bloopy.Player
         /// Vertical screen range, used to detect when player is outside the bounds of the screen to trigger end game.
         /// </summary>
         public float vScreenRange;
-
-        /*TODO: See if hScreenRange and vScreenRange can be replaced with using the bounds of the camera. This will ensure differing screen sizes will not affect gameplay.
-         *Alternate Options: use a trigger
-         */
+        #region OLD CODE
+        /// <summary>
+        /// The velocity of the player's rigidbody2D. Used for bounce calculations.
+        /// </summary>
+        Vector3 currentVelocity;
+        #endregion
 
         /// <summary>
         /// Launches player using rigidbody.AddForce(). Used in NewGameManager.StartGame().
@@ -39,12 +45,12 @@ namespace Bloopy.Player
         {
             if(collision.transform.CompareTag("Platform"))
             {
-                //TODO: Change Bloopy bounce physics to be done manually, instead of using physicsmaterial2D and other Unity components.
+                ////TODO: Change Bloopy bounce physics to be done manually, instead of using physicsmaterial2D and other Unity components. Current solution not working, with or without physicsmaterial2D. Seems like the issue is to do with teh collision always being considered at a right angle with no variation.
 
-                Transform collidedPlatform = collision.transform;
+                //float bounceSpeed = currentVelocity.magnitude;
+                //Vector3 bounceDirection = Vector3.Reflect(currentVelocity.normalized, collision.contacts[0].normal);
 
-                //get the z rotation of the platform
-                //get the vertical velocity
+                //playerRigidbody.velocity = bounceDirection * Mathf.Max(bounceSpeed, 0);
 
                 PlatformSpawner.singleton.platformInstance = null;
                 Destroy(collision.gameObject);
@@ -53,6 +59,10 @@ namespace Bloopy.Player
         private void Awake()
         {
             playerRigidbody = GetComponent<Rigidbody2D>();
+            playerCamera = Camera.main;
+
+            vScreenRange = playerCamera.orthographicSize;
+            hScreenRange = playerCamera.aspect * vScreenRange;
         }
         private void Update()
         {
@@ -62,18 +72,20 @@ namespace Bloopy.Player
                 //If player is to the right of the screen
                 if (transform.position.x > hScreenRange)
                 {
-                    //Move player to just outside the le
+                    //Move player to just outside the left of the screen
                     Vector3 tempPos = transform.position;
-                    tempPos.x = -hScreenRange + 0.01f;
+                    tempPos.x = -hScreenRange;
                     transform.position = tempPos;
                 }
+                //If player is the left of the screen
                 if (transform.position.x < -hScreenRange)
                 {
+                    //Move player to just outside the right of the screen
                     Vector3 tempPos = transform.position;
-                    tempPos.x = hScreenRange - 0.01f;
+                    tempPos.x = hScreenRange;
                     transform.position = tempPos;
                 }
-                if (transform.position.y < Camera.main.transform.position.y - 5.5f)
+                if (transform.position.y - playerCamera.transform.position.y < -vScreenRange)
                 {
                     NewGameManager.singleton.EndGame();
                 }
