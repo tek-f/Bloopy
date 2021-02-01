@@ -273,6 +273,11 @@ PrefabInstance:
       propertyPath: vScreenRange
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1188942040232696512, guid: ceea7e09d0fbc0d4693810f217614ff1,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 91c98125a1977854696c44ff20a8dc16, type: 2}
     - target: {fileID: 1188942040232696513, guid: ceea7e09d0fbc0d4693810f217614ff1,
         type: 3}
       propertyPath: m_Name
@@ -332,6 +337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1188942040232696518, guid: ceea7e09d0fbc0d4693810f217614ff1,
+        type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceea7e09d0fbc0d4693810f217614ff1, type: 3}

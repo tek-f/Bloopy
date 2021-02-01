@@ -45,13 +45,6 @@ namespace Bloopy.Player
         {
             if(collision.transform.CompareTag("Platform"))
             {
-                ////TODO: Change Bloopy bounce physics to be done manually, instead of using physicsmaterial2D and other Unity components. Current solution not working, with or without physicsmaterial2D. Seems like the issue is to do with teh collision always being considered at a right angle with no variation.
-
-                //float bounceSpeed = currentVelocity.magnitude;
-                //Vector3 bounceDirection = Vector3.Reflect(currentVelocity.normalized, collision.contacts[0].normal);
-
-                //playerRigidbody.velocity = bounceDirection * Mathf.Max(bounceSpeed, 0);
-
                 PlatformSpawner.singleton.platformInstance = null;
                 Destroy(collision.gameObject);
             }
@@ -85,6 +78,7 @@ namespace Bloopy.Player
                     tempPos.x = hScreenRange;
                     transform.position = tempPos;
                 }
+                //If player is below the screen range
                 if (transform.position.y - playerCamera.transform.position.y < -vScreenRange)
                 {
                     NewGameManager.singleton.EndGame();

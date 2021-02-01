@@ -51,6 +51,8 @@ namespace Bloopy.GameManagement
             #region Reference SetUp
             cameraTrackingBehaviors = Camera.main.GetComponent<CameraTrackingBehaviors>();
             #endregion
+
+            Time.timeScale = 1.0f;
         }
         private void Update()
         {
