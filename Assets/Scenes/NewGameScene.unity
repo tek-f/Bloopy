@@ -1070,7 +1070,6 @@ GameObject:
   - component: {fileID: 1720161127}
   - component: {fileID: 1720161126}
   - component: {fileID: 1720161125}
-  - component: {fileID: 1720161128}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1143,18 +1142,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1720161128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720161124}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357c86c1e38b13f438c6a786268e44c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1759398222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,10 +1457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9466e999325dc4941ac355b186370347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 942574242896526394, guid: 63ad3e5762ba5444385db6ff40505fd2,
+  platformPrefab: {fileID: 3318517510382648162, guid: 87eab0b7ac03c1a4c90d41a38c271bd2,
     type: 3}
   platformInstance: {fileID: 0}
-  platforms: []
 --- !u!114 &2064282869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1490,3 +1476,4 @@ MonoBehaviour:
   height: 0
   heightDisplay: {fileID: 370390776}
   endGamePanel: {fileID: 214483115}
+  objectsMoving: 0
