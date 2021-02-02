@@ -11,6 +11,14 @@ namespace Bloopy.Player
         /// Reference to player's Rigidbody2D.
         /// </summary>
         Rigidbody2D playerRigidbody;
+
+        public Rigidbody2D PlayerRigidBody
+        {
+            get
+            {
+                return playerRigidbody;
+            }
+        }
         /// <summary>
         /// Force player is launched with on start of game.
         /// </summary>
@@ -20,11 +28,11 @@ namespace Bloopy.Player
         /// </summary>
         Camera playerCamera;
         /// <summary>
-        /// Horizontal screen range, used for side looping.
+        /// Horizontal screen range, used for side looping. Equal to half the width of the screen in world space units. Calcualted in Awake().
         /// </summary>
         public float hScreenRange;
         /// <summary>
-        /// Vertical screen range, used to detect when player is outside the bounds of the screen to trigger end game.
+        /// Vertical screen range, used to detect when player is outside the bounds of the screen to trigger end game. Equal to half the height of the screen in world space units. Calcualted in Awake().
         /// </summary>
         public float vScreenRange;
         #region OLD CODE
@@ -40,6 +48,26 @@ namespace Bloopy.Player
         public void Launch()
         {
             playerRigidbody.AddForce(new Vector2(0, launchForce), ForceMode2D.Impulse);
+        }
+
+        /// <summary>
+        /// Used to maintain Bloopy's position and track speed to move platforms and other objects down when Bloopy is at or above the centre of the screen.
+        /// </summary>
+        void Positioning()
+        {
+            if(transform.position.y >= playerCamera.transform.position.y)
+            {
+                //set bloopy position to middle of screen
+                Vector3 _tempVectorA = transform.position;
+                _tempVectorA.y = playerCamera.transform.position.y;
+                transform.position = _tempVectorA;
+                //tell game manager to move platforms and objects at rate of the inverse of bloopy velocity
+                NewGameManager.singleton.objectsMoving = true;
+            }
+            else
+            {
+                NewGameManager.singleton.objectsMoving = false;
+            }
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -62,6 +90,7 @@ namespace Bloopy.Player
             //If a game session has been started
             if (NewGameManager.singleton.GamePlaying)
             {
+                Positioning();
                 //If player is to the right of the screen
                 if (transform.position.x > hScreenRange)
                 {

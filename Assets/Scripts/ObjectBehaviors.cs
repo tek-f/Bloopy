@@ -8,12 +8,33 @@ namespace Bloopy.Objects
 {
     public class ObjectBehaviors : MonoBehaviour
     {
-        private void Update()
+        Rigidbody2D playerRigidbody;
+        float screenBuffer = 2.0f;
+
+        public virtual void MoveObject()
         {
-            if(NewGameManager.singleton.player.transform.position.y > transform.position.y + 7)
+            if (NewGameManager.singleton.objectsMoving)
             {
+                Vector3 _tempVector3 = transform.position;
+                _tempVector3.y -= (playerRigidbody.velocity.y * Time.deltaTime);
+                transform.position = _tempVector3;
+            }
+            if(transform.position.y < (-NewGameManager.singleton.player.vScreenRange - screenBuffer))
+            {
+                if (transform.CompareTag("Platform"))
+                {
+                    PlatformSpawner.singleton.platformInstance = null;
+                }
                 Destroy(gameObject);
             }
+        }
+        protected void Start()
+        {
+            playerRigidbody = NewGameManager.singleton.player.GetComponent<Rigidbody2D>();
+        }
+        protected void Update()
+        {
+            MoveObject();
         }
     }
 }

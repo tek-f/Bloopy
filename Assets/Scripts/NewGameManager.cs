@@ -13,19 +13,21 @@ namespace Bloopy.GameManagement
         public static NewGameManager singleton;
         #endregion
         public BloopyBehaviors player;
-        CameraTrackingBehaviors cameraTrackingBehaviors;
+        Camera playerCamera;
         public float height;
         bool gamePlaying = false;
         public bool GamePlaying { get { return gamePlaying; } }
         public Text heightDisplay;
         public GameObject endGamePanel;
+        public bool objectsMoving = false;
 
         public void StartGame()
         {
             gamePlaying = true;
             player.Launch();
             PlatformSpawner.singleton.enabled = true;
-            cameraTrackingBehaviors.enabled = true;
+            height = 0;
+            //cameraTrackingBehaviors.enabled = true;
         }
 
         public void EndGame()
@@ -49,7 +51,7 @@ namespace Bloopy.GameManagement
             #endregion
 
             #region Reference SetUp
-            cameraTrackingBehaviors = Camera.main.GetComponent<CameraTrackingBehaviors>();
+            playerCamera = Camera.main;
             #endregion
 
             Time.timeScale = 1.0f;
@@ -62,9 +64,9 @@ namespace Bloopy.GameManagement
             }
             else if(gamePlaying)
             {
-                if(player.transform.position.y > height)
+                if(player.transform.position.y >= playerCamera.transform.position.y)
                 {
-                    height = player.transform.position.y;
+                    height += (player.PlayerRigidBody.velocity.y * Time.deltaTime);
                     heightDisplay.text = height.ToString();
                 }
                 if(Input.GetMouseButtonDown(0))
@@ -91,4 +93,5 @@ namespace Bloopy.GameManagement
         }
     }
 }
-//TODO: Change from moving Bloopy verticaly to having objects move past Bloopy. Will require the score tracking to be changed to being inscreased based on the vertical velocity of Bloopy, while keeping Bloopy within range of the camera.
+//TODO: Implament score display after game session ends.
+//TODO: Implament high score system. Also research posting scores/tracking scores online.

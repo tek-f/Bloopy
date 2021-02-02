@@ -10,9 +10,7 @@ namespace Bloopy.GameManagement
         public static PlatformSpawner singleton;
 
         public GameObject platformPrefab;
-        public PlatformBehavior platformInstance = null;
-
-        public PlatformBehavior[] platforms;
+        public GameObject platformInstance = null;
         public void SpawnPlatform(Vector3 _clickPos)
         {
             //Determine platforms rotation
@@ -37,7 +35,7 @@ namespace Bloopy.GameManagement
             }
 
             //Replace old platform with newPlatform
-            platformInstance = newPlatform.GetComponent<PlatformBehavior>();
+            platformInstance = newPlatform.gameObject;
 
             #region Old Code
             //int tempPlatformTracker = 0;//Used to track which platform is going to be replaced by the new platform, if any
