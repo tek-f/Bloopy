@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Bloopy.Player;
 using Bloopy.Platform;
 
@@ -17,7 +18,7 @@ namespace Bloopy.GameManagement
         public float height;
         bool gamePlaying = false;
         public bool GamePlaying { get { return gamePlaying; } }
-        public Text heightDisplay;
+        public TMP_Text heightDisplay;
         public GameObject endGamePanel;
         public bool objectsMoving = false;
 
@@ -67,7 +68,7 @@ namespace Bloopy.GameManagement
                 if(player.transform.position.y >= playerCamera.transform.position.y)
                 {
                     height += (player.PlayerRigidBody.velocity.y * Time.deltaTime);
-                    heightDisplay.text = height.ToString();
+                    heightDisplay.text = ((int)height).ToString();
                 }
                 if(Input.GetMouseButtonDown(0))
                 {
