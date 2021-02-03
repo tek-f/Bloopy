@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
 using Bloopy.Player;
 using Bloopy.Platform;
@@ -22,13 +23,29 @@ namespace Bloopy.GameManagement
         public GameObject endGamePanel;
         public bool objectsMoving = false;
 
+        public InputActionMap gameplayActions;
+        public InputAction platformAction;
+
+        void OnPlatformAction()
+        {
+            if (gamePlaying)
+            {
+                Vector3 platformPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (platformPos.y < Camera.main.transform.position.y)
+                {
+                    PlatformSpawner.singleton.SpawnPlatform(platformPos);
+                }
+            }
+        }
+
         public void StartGame()
         {
             gamePlaying = true;
             player.Launch();
             PlatformSpawner.singleton.enabled = true;
             height = 0;
-            //cameraTrackingBehaviors.enabled = true;
+
+
         }
 
         public void EndGame()
