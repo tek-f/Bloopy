@@ -1713,17 +1713,20 @@ MonoBehaviour:
   heightDisplay: {fileID: 102349916}
   endGamePanel: {fileID: 214483115}
   objectsMoving: 0
-  gameplayActions:
-    m_Name: Gameplay Actions
-    m_Id: e82da923-c829-4a19-bbf9-c9a756e74d43
-    m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
-  platformAction:
-    m_Name: Platform
+  gameplayActions: {fileID: 2064282870}
+  interactAction:
+    m_Name: Interact
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 05276851-1d2c-4871-a263-f71e17babe9f
+    m_Id: 66592ad8-3822-412c-bf45-96d2d05042ec
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  platformPositionAction:
+    m_Name: Platform Position
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 95b3546b-102e-4afc-8e07-f344351ba620
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []

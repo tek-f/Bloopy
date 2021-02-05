@@ -23,14 +23,23 @@ namespace Bloopy.GameManagement
         public GameObject endGamePanel;
         public bool objectsMoving = false;
 
-        public InputActionMap gameplayActions;
-        public InputAction platformAction;
+        public PlayerInput gameplayActions;
+        public InputAction interactAction;
+        public InputAction platformPositionAction;
 
-        void OnPlatformAction()
+        private void OnInteractPerformedStartGame(InputAction.CallbackContext _context)
         {
-            if (gamePlaying)
+            if (!gamePlaying)
             {
-                Vector3 platformPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                StartGame();
+            }
+        }
+
+        private void OnInteractPerformedGamePlaying(InputAction.CallbackContext _context)
+        {
+            if(gamePlaying)
+            {
+                Vector3 platformPos = Camera.main.ScreenToWorldPoint(platformPositionAction.ReadValue<Vector2>());
                 if (platformPos.y < Camera.main.transform.position.y)
                 {
                     PlatformSpawner.singleton.SpawnPlatform(platformPos);
@@ -41,11 +50,15 @@ namespace Bloopy.GameManagement
         public void StartGame()
         {
             gamePlaying = true;
-            player.Launch();
             PlatformSpawner.singleton.enabled = true;
             height = 0;
 
+            platformPositionAction.Enable();
 
+            interactAction.performed -= OnInteractPerformedStartGame;
+            interactAction.performed += OnInteractPerformedGamePlaying;
+
+            player.Launch();
         }
 
         public void EndGame()
@@ -53,6 +66,9 @@ namespace Bloopy.GameManagement
             gamePlaying = false;
             endGamePanel.SetActive(true);
             Time.timeScale = 0.0f;
+
+            interactAction.Disable();
+            platformPositionAction.Disable();
         }
 
         private void Awake()
@@ -73,40 +89,38 @@ namespace Bloopy.GameManagement
             #endregion
 
             Time.timeScale = 1.0f;
+
+            #region Input SetUp
+            interactAction = gameplayActions.actions.FindAction("Interact");
+            interactAction.Enable();
+            interactAction.performed += OnInteractPerformedStartGame;
+
+            platformPositionAction = gameplayActions.actions.FindAction("PlatformPosition");
+            #endregion
         }
         private void Update()
         {
-            if(!gamePlaying && Input.GetMouseButtonDown(0))
-            {
-                StartGame();
-            }
-            else if(gamePlaying)
+            if(gamePlaying)
             {
                 if(player.transform.position.y >= playerCamera.transform.position.y)
                 {
                     height += (player.PlayerRigidBody.velocity.y * Time.deltaTime);
                     heightDisplay.text = ((int)height).ToString();
                 }
-                if(Input.GetMouseButtonDown(0))
-                {
-                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    if (mousePos.y < Camera.main.transform.position.y)
-                    {
-                        PlatformSpawner.singleton.SpawnPlatform(mousePos);
-                    }
-                    //RaycastHit hit0;
-                    //if(Physics.Raycast(Input.mousePosition, Vector3.forward, out hit0, Mathf.Infinity))
-                    //{
-                    //    if(hit0.transform.GetComponent<PlatformBehavior>())
-                    //    {
-                    //        hit0.transform.GetComponent<PlatformBehavior>().IncreasePlatformPower();
-                    //    }
-                    //    else
-                    //    {
-                    //        platformSpawner.SpawnPlatform(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                    //    }
-                    //}
-                }
+                #region Raycasting For Platform Power Increase TBD
+                //    //RaycastHit hit0;
+                //    //if(Physics.Raycast(Input.mousePosition, Vector3.forward, out hit0, Mathf.Infinity))
+                //    //{
+                //    //    if(hit0.transform.GetComponent<PlatformBehavior>())
+                //    //    {
+                //    //        hit0.transform.GetComponent<PlatformBehavior>().IncreasePlatformPower();
+                //    //    }
+                //    //    else
+                //    //    {
+                //    //        platformSpawner.SpawnPlatform(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                //    //    }
+                //    //}
+                #endregion
             }
         }
     }

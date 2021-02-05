@@ -6,9 +6,17 @@
             "id": "c976c00c-2593-4587-803f-908e09559d40",
             "actions": [
                 {
-                    "name": "Platform",
-                    "type": "Button",
+                    "name": "PlatformPosition",
+                    "type": "Value",
                     "id": "e1c29b24-3d18-4a92-98de-bcd2f68048de",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "561d1e99-8cdd-4491-bfac-fb602ed31513",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -18,22 +26,44 @@
                 {
                     "name": "",
                     "id": "4b94c4dd-a462-40c2-9c60-a24884ab920e",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Platform",
+                    "action": "PlatformPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "38fc4c41-e594-48c4-8529-330a3410a394",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "PlatformPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04472819-dcd0-4d0e-b541-4626b7e6631c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4186647c-2d85-419b-97b8-8a365ac5c311",
                     "path": "<Touchscreen>/primaryTouch/tap",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
-                    "action": "Platform",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
