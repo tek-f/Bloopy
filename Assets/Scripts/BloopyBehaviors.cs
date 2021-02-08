@@ -11,7 +11,9 @@ namespace Bloopy.Player
         /// Reference to player's Rigidbody2D.
         /// </summary>
         Rigidbody2D playerRigidbody;
-
+        /// <summary>
+        /// Access modfier for playerRigidbody Rigidbody2D. Get only.
+        /// </summary>
         public Rigidbody2D PlayerRigidBody
         {
             get
@@ -55,6 +57,7 @@ namespace Bloopy.Player
         /// </summary>
         void Positioning()
         {
+            //If Bloopy's position is above the centre of the screen
             if(transform.position.y >= playerCamera.transform.position.y)
             {
                 //set bloopy position to middle of screen
@@ -71,18 +74,24 @@ namespace Bloopy.Player
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            //If collision if with platform
             if(collision.transform.CompareTag("Platform"))
             {
+                //Set the platformInstance in PlatformSpawner to null.
                 PlatformSpawner.singleton.platformInstance = null;
+                //Destroy the platform game object.
                 Destroy(collision.gameObject);
             }
         }
         private void Awake()
         {
+            //Set reference variables.
             playerRigidbody = GetComponent<Rigidbody2D>();
             playerCamera = Camera.main;
 
+            //Calculate the vertical range of the screen using playerCamera size.
             vScreenRange = playerCamera.orthographicSize;
+            //Calculate the horizontal range of the screen using playerCamera size times the aspect ratio of the screen.
             hScreenRange = playerCamera.aspect * vScreenRange;
         }
         private void Update()
@@ -107,9 +116,10 @@ namespace Bloopy.Player
                     tempPos.x = hScreenRange;
                     transform.position = tempPos;
                 }
-                //If player is below the screen range
-                if (transform.position.y - playerCamera.transform.position.y < -vScreenRange)
+                //If player is below the screen range (plus buffer of 0.5f)
+                if (transform.position.y - playerCamera.transform.position.y < -vScreenRange - 0.5f)
                 {
+                    //End game
                     NewGameManager.singleton.EndGame();
                 }
             }
