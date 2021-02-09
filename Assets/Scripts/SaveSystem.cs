@@ -29,20 +29,31 @@ namespace Bloopy.Saving
     {
         static public SaveSystem singleton;
 
-        string filePath;
-
         public void SaveGame(SaveData _saveData)
         {
-            FileStream dataStream = new FileStream(filePath, FileMode.Create);
+            string filePath = Application.persistentDataPath + "/saveData.tsf";
 
-            BinaryFormatter converter = new BinaryFormatter();
-            converter.Serialize(dataStream, _saveData);
+            FileStream file;
 
-            dataStream.Close();
+            if(File.Exists(filePath))
+            {
+                file = File.OpenWrite(filePath);
+            }
+            else
+            {
+                file = File.Create(filePath);
+            }
+
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(file, _saveData);
+
+            file.Close();
         }
 
         public SaveData LoadGame()
         {
+            string filePath = Application.persistentDataPath + "/saveData.tsf";
+
             if (File.Exists(filePath))
             {
                 FileStream dataStream = new FileStream(filePath, FileMode.Open);
@@ -60,28 +71,35 @@ namespace Bloopy.Saving
             }
         }
 
-        public void DeleteSaveFile()
-        {
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-                Debug.Log("File " + filePath + " has been deleted.");
-            }
-            else
-            {
-                Debug.LogError("No file at " + filePath + " has been found.");
-            }
-        }
+        #region Test Methods DO NOT USE
+        //public void DeleteSaveFile()
+        //{
+        //    string filePath = Application.persistentDataPath + "/saveData.tsf";
 
-        public void CheckIfFileExists()
-        {
-            if (File.Exists(filePath))
-            {
-                Debug.Log("File " + filePath + " does exist.");
-                return;
-            }
-            Debug.Log("File " + filePath + " does not exist.");
-        }
+        //    if (File.Exists(filePath))
+        //    {
+        //        File.Delete(filePath);
+        //        Debug.Log("File " + filePath + " has been deleted.");
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("No file at " + filePath + " has been found.");
+        //    }
+        //}
+
+        //public void CheckIfFileExists()
+        //{
+
+        //    string filePath = Application.persistentDataPath + "/saveData.tsf";
+
+        //    if (File.Exists(filePath))
+        //    {
+        //        Debug.Log("File " + filePath + " does exist.");
+        //        return;
+        //    }
+        //    Debug.Log("File " + filePath + " does not exist.");
+        //}
+        #endregion
 
         private void Awake()
         {
@@ -96,7 +114,8 @@ namespace Bloopy.Saving
             }
             #endregion
 
-            filePath = Application.persistentDataPath + "/saveData.tsf";
+            string filePath = Application.persistentDataPath + "/saveData.tsf";
+
             if (!File.Exists(filePath))
             {
                 SaveData saveData = new SaveData();

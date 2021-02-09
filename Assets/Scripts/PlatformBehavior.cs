@@ -9,14 +9,21 @@ namespace Bloopy.Platform
     public class PlatformBehavior : ObjectBehaviors
     {
         int platformPower = 0;
-        //public int platformsIndex;
-        public float spawnTimestamp { get; private set; }
+        public int PlatformPower
+        {
+            get
+            {
+                return platformPower;
+            }
+        }
+
         public void IncreasePlatformPower()
         {
             if(platformPower < 2)
             {
                 platformPower++;
             }
+            Debug.Log(platformPower);
         }
     }
 }

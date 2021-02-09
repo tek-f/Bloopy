@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 102349915}
   - component: {fileID: 102349917}
   - component: {fileID: 102349916}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Height Display Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 6200000, guid: 91c98125a1977854696c44ff20a8dc16, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1188942040232696513, guid: ceea7e09d0fbc0d4693810f217614ff1,
         type: 3}
       propertyPath: m_Name
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: 244662053}
   - component: {fileID: 244662055}
   - component: {fileID: 244662054}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: HUD Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -963,7 +963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2136,7 +2136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
-  isPaused: 0
 --- !u!1 &2064282866
 GameObject:
   m_ObjectHideFlags: 0

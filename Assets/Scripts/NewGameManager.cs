@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using Bloopy.Player;
 using Bloopy.Platform;
@@ -62,7 +64,7 @@ namespace Bloopy.GameManagement
         /// <summary>
         /// SaveData file for this player.
         /// </summary>
-        SaveData saveData = new SaveData();
+        SaveData saveData;
         /// <summary>
         /// Publicily accessible reference to the highScore in saveData.
         /// </summary>
@@ -73,6 +75,7 @@ namespace Bloopy.GameManagement
                 return saveData.highScore;
             }
         }
+        PlatformBehavior targetedPlatform = null;
         #endregion
 
         #region Input Variables
@@ -94,10 +97,19 @@ namespace Bloopy.GameManagement
         {
             if(gamePlaying)
             {
-                Vector3 platformPos = Camera.main.ScreenToWorldPoint(platformPositionAction.ReadValue<Vector2>());
-                if (platformPos.y < Camera.main.transform.position.y)
+                if (targetedPlatform == null)
                 {
-                    PlatformSpawner.singleton.SpawnPlatform(platformPos);
+                    Vector3 platformPos = playerCamera.ScreenToWorldPoint(platformPositionAction.ReadValue<Vector2>());
+                    if (platformPos.y < player.vScreenRange * 0.5)
+                    {
+                        PlatformSpawner.singleton.SpawnPlatform(platformPos);
+                    }
+                    return;
+                }
+                else
+                {
+                    Debug.Log("HIT!!!");
+                    targetedPlatform.IncreasePlatformPower();
                 }
             }
         }
@@ -169,8 +181,19 @@ namespace Bloopy.GameManagement
             playerCamera = Camera.main;
             #endregion
 
-            //Load previous high score.
-            saveData = SaveSystem.singleton.LoadGame();
+            saveData = new SaveData();
+
+            //If save file exists
+            if(File.Exists(Application.persistentDataPath + "/saveData.tsf"))
+            {
+                //Load save data
+                saveData = SaveSystem.singleton.LoadGame();
+            }
+            else//If no save file exists
+            {
+                //Create new save file
+                SaveSystem.singleton.SaveGame(saveData);
+            }
 
             //Set timeScale to 1.
             Time.timeScale = 1.0f;
@@ -193,30 +216,35 @@ namespace Bloopy.GameManagement
             if(gamePlaying)
             {
                 //If the player is above the centre of the screen
-                if(player.transform.position.y >= playerCamera.transform.position.y)
+                if(player.transform.position.y >= player.vScreenRange * 0.5)
                 {
                     //Increase height by the players velocity over time.
                     height += (player.PlayerRigidBody.velocity.y * Time.deltaTime);
                     //Set heightDisplay to equal current height.
                     heightDisplay.text = ((int)height).ToString();
                 }
-                #region Raycasting For Platform Power Increase TBD
-                //    //RaycastHit hit0;
-                //    //if(Physics.Raycast(Input.mousePosition, Vector3.forward, out hit0, Mathf.Infinity))
-                //    //{
-                //    //    if(hit0.transform.GetComponent<PlatformBehavior>())
-                //    //    {
-                //    //        hit0.transform.GetComponent<PlatformBehavior>().IncreasePlatformPower();
-                //    //    }
-                //    //    else
-                //    //    {
-                //    //        platformSpawner.SpawnPlatform(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                //    //    }
-                //    //}
-                #endregion
+            }
+
+        }
+        private void FixedUpdate()
+        {
+            Vector3 mousePos = platformPositionAction.ReadValue<Vector2>();
+            mousePos.z = 10;
+            Vector3 screenPos = playerCamera.ScreenToWorldPoint(mousePos);
+            RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
+            if(hit)
+            {
+                if (hit.collider.CompareTag("Platform"))
+                {
+                    targetedPlatform = hit.collider.GetComponent<PlatformBehavior>();
+                }
+            }
+            else
+            {
+                targetedPlatform = null;
             }
         }
     }
 }
-//TODO: Implament score display after game session ends.
-//TODO: Implament high score system. Also research posting scores/tracking scores online.
+//TODO: Alter platform spawning limit and bloopy height limit to 3/4 of the screen instead of 1/2.
+//TODO: Research posting scores/tracking scores online.

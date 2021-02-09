@@ -14,13 +14,5 @@ public class MAINMENUDEVONLY : MonoBehaviour
             saveData.ResetHighScore();
             SaveSystem.singleton.SaveGame(saveData);
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SaveSystem.singleton.DeleteSaveFile();
-        }
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            SaveSystem.singleton.CheckIfFileExists();
-        }
     }
 }
