@@ -599,7 +599,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.116263434, g: 0.11494304, b: 0.38679248, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1074,7 +1074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
-  isPaused: 0
 --- !u!114 &2091354909
 MonoBehaviour:
   m_ObjectHideFlags: 0

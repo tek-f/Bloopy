@@ -39,19 +39,19 @@ namespace Bloopy.UI
             highScoreHeightDisplay.text = NewGameManager.singleton.highScore.ToString();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             //If the heightDisplayCounter counter is less than 75% of finalHeight
             if (heightDisplayCounter < finalHeight * 0.75f)
             {
-                //Increase heightDisplayCounter by 25% of finalHeight
-                heightDisplayCounter += (finalHeight * 0.25f) * Time.deltaTime;
+                //Increase heightDisplayCounter by TBD
+                heightDisplayCounter += (finalHeight * 0.01f);
             }
             //If heightDisplayCounter is less than finalHeight, but more than 75% of finalHeight
             else if (heightDisplayCounter < finalHeight)
             {
-                //Increase heightDisplayCounter by 0.2 every frame
-                heightDisplayCounter += 0.2f;
+                //Increase heightDisplayCounter by TBD
+                heightDisplayCounter += finalHeight * 0.005f;
             }
             //Set finalHeightDisplay text to equal heightDisplayCounter.
             finalHeightDisplay.text = heightDisplayCounter.ToString();

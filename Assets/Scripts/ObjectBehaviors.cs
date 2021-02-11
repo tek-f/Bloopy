@@ -28,7 +28,7 @@ namespace Bloopy.Objects
                 Destroy(gameObject);
             }
         }
-        protected void Start()
+        protected virtual void Start()
         {
             playerRigidbody = NewGameManager.singleton.player.GetComponent<Rigidbody2D>();
         }

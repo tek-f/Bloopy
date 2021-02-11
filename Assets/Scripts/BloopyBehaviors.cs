@@ -92,21 +92,28 @@ namespace Bloopy.Player
         {
             //Store the current speed of the rigidbody.
             float speed = currentVelocity.magnitude;
-
             //Calculate and store the bounce direction
             Vector3 direction = Vector3.Reflect(currentVelocity.normalized, _collisionNormal);
-
             //Set rigidbody velocity according to direction and speed, with modifiers
             playerRigidbody.velocity = direction * (speed * (bounceMultiplyer + _platformPower));
-
-            Debug.Log("Boing!");
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //If collision if with platform
             if(collision.transform.CompareTag("Platform"))
             {
-                Bounce(collision.contacts[0].normal, collision.collider.GetComponent<PlatformBehavior>().PlatformPower);
+                //Get platform script
+                PlatformBehavior collidedPlatform = collision.collider.GetComponent<PlatformBehavior>();
+                //Bounce off the platform
+                Bounce(collision.contacts[0].normal, collidedPlatform.PlatformPower);
+                //If platform power has been increased
+                if(collidedPlatform.PlatformPower > 0)
+                {
+                    //Activate platform Particle System
+                    collidedPlatform.platformParticles.gameObject.SetActive(true);
+                    //Unparent partcile system (so particles are not destroyed with platform)
+                    collidedPlatform.platformParticles.transform.parent = null;
+                }
                 //Set the platformInstance in PlatformSpawner to null.
                 PlatformSpawner.singleton.platformInstance = null;
                 //Destroy the platform game object.

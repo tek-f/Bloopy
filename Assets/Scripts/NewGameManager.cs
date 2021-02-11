@@ -246,5 +246,3 @@ namespace Bloopy.GameManagement
         }
     }
 }
-//TODO: Alter platform spawning limit and bloopy height limit to 3/4 of the screen instead of 1/2.
-//TODO: Research posting scores/tracking scores online.
