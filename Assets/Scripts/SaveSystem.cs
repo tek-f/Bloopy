@@ -11,6 +11,19 @@ namespace Bloopy.Saving
     public class SaveData
     {
         public int highScore = 0;
+        public bool firstTimePlaying = true;
+
+        public void ToggleFTP()
+        {
+            if (firstTimePlaying)
+            {
+                firstTimePlaying = false;
+            }
+            else
+            {
+                firstTimePlaying = true;
+            }
+        }
 
         public void SetHighScore(int _newHighScore)
         {
